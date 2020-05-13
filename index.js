@@ -43,6 +43,10 @@ function Person(name, age) {
 this.stomach = [];
 this.name = name;
 this.age = age;
+this.sayIt = function(){
+ const stringAge = this.age.toString();
+ console.log(this.name + ", " + stringAge);
+}
 }
 Person.prototype.eat = function (someFood){
   if (this.stomach.length < 10){
@@ -54,23 +58,13 @@ Person.prototype.eat = function (someFood){
 Person.prototype.poop = function(){
   this.stomach = [];
 }
-Person.prototype.sayIt = function(){
-  const shoutOut = this.name + this.age.toString;
+Person.prototype.toString = function(){
+  const stringAge = this.age.toString();
+  return (this.name + ", " + stringAge);
+  
 }
 const mary = new Person("mary",45);
-console.log(mary.eat("spinach"));
-console.log(mary.eat("pizza"));
-console.log(mary.eat("spaghetti"));
-console.log(mary.eat("bulgolgi"));
-console.log(mary.eat("french toast"));
-console.log(mary.eat("pepperoni"));
-console.log(mary.eat("eggs"));
-console.log(mary.eat("tacos"));
-console.log(mary.eat("baked potato"));
-console.log(mary.eat("french fries"));
-console.log(mary.eat("ramen"));
-console.log(mary.eat("spinach"));
-console.log(mary);
+
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -86,8 +80,28 @@ console.log(mary);
 */
 
 function Car(model, milesPerGallon) {
-this.tank = 0
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+  
 }
+Car.prototype.fill = function(gallons){
+  this.tank += gallons;
+}
+Car.prototype.drive = function (distance) {
+	let statement = "";
+    if (this.tank < distance / this.milesPerGallon) {
+        this.odometer += this.tank * this.milesPerGallon;
+        statement = "I ran out of fuel at " + (this.tank * this.milesPerGallon) + " miles!";
+        this.tank = 0;
+    } else {
+      this.odometer += distance;
+      this.tank -= distance / this.milesPerGallon;
+    }
+    return statement;
+  };
+
 
 /*
   TASK 3
@@ -96,18 +110,24 @@ this.tank = 0
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+  }
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function (){
+  return ("Playing with " + this.favoriteToy);
 }
-
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1.  If this is used in the global scope, then the value of the 'this' keyword will be on the window object. GLOBAL
+  2.  If there is a dot called after the 'this' keyword, then 'this' is referring to the parent function of the 
+  object being called. IMPLICIT
+  3.  If a constructor is used, then the keyword 'this' is referring to a certain instance of the object is modified and returned 
+  by the constructor function. NEW
+  4.  If there is 'call' or 'apply' method is used then it is defined by the object it is in line with. EXPLICIT
 */
 
 
