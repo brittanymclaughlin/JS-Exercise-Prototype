@@ -39,10 +39,38 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+this.stomach = [];
+this.name = name;
+this.age = age;
 }
+Person.prototype.eat = function (someFood){
+  if (this.stomach.length < 10){
+  this.stomach.push(someFood);
+  } else{
 
+  }
+}
+Person.prototype.poop = function(){
+  this.stomach = [];
+}
+Person.prototype.sayIt = function(){
+  const shoutOut = this.name + this.age.toString;
+}
+const mary = new Person("mary",45);
+console.log(mary.eat("spinach"));
+console.log(mary.eat("pizza"));
+console.log(mary.eat("spaghetti"));
+console.log(mary.eat("bulgolgi"));
+console.log(mary.eat("french toast"));
+console.log(mary.eat("pepperoni"));
+console.log(mary.eat("eggs"));
+console.log(mary.eat("tacos"));
+console.log(mary.eat("baked potato"));
+console.log(mary.eat("french fries"));
+console.log(mary.eat("ramen"));
+console.log(mary.eat("spinach"));
+console.log(mary);
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -57,8 +85,8 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+this.tank = 0
 }
 
 /*
